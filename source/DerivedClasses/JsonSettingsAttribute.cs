@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SettingsGenerator
 {
-	internal class JsonSettingsAttribute : BaseSettingsAttribute
+	public class JsonSettingsAttribute : BaseSettingsAttribute
 	{
 		public JsonSettingsAttribute(string fileName, BaseErrorHandler? errorHandler = null, BindingFlags filter = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, bool includeProperties = false) : base(fileName, errorHandler, filter, includeProperties) { }
 
