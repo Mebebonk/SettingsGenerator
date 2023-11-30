@@ -5,7 +5,7 @@ namespace SettingsGenerator
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
 	abstract public class BaseSettingsAttribute : Attribute
 	{
-		private const BindingFlags _baseFilter = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+		protected const BindingFlags _baseFilter = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
 		private readonly BindingFlags _filter;
 
 		private readonly string _fileName;

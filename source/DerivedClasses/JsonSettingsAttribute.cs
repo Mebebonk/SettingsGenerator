@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace SettingsGenerator
 {
 	public class JsonSettingsAttribute : BaseSettingsAttribute
-	{
-		public JsonSettingsAttribute(string fileName, BaseErrorHandler? errorHandler = null, BindingFlags filter = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, bool includeProperties = false) : base(fileName, errorHandler, filter, includeProperties) { }
+	{		
+		public JsonSettingsAttribute(string fileName, bool includeProperties = false) : base(fileName, new SimpleErrorHandler(), _baseFilter, includeProperties) { }
 
-		public JsonSettingsAttribute(string fileName, Type attributeLink, BaseErrorHandler? errorHandler = null, BindingFlags filter = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, bool includeProperties = false) : base(fileName, attributeLink, errorHandler, filter, includeProperties) { }
+		public JsonSettingsAttribute(string fileName, Type attributeLink, bool includeProperties = false) : base(fileName, attributeLink, new SimpleErrorHandler(), _baseFilter, includeProperties) { }
 
 		protected override void ReadFile(FileStream file, out Dictionary<string, object?>? args)
 		{
