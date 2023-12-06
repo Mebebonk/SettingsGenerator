@@ -64,7 +64,19 @@ namespace SettingsGenerator
 
 			if (members.Length == 0) { _errorHandler.HandleNoMembersFound(caller); return; }
 
-			using FileStream file = File.OpenRead($"{_fileName}");
+			FileStream file;
+
+			try
+			{
+				file = File.OpenRead($"{_fileName}");
+			}
+			catch (FileNotFoundException)
+			{
+				var vFile = _errorHandler.HandleNoFileFound(caller);
+				if (vFile == null) { return; }
+				file = vFile;
+			}
+
 			ReadFile(file, out Dictionary<string, object?>? args);
 
 			if (args == null || args.Count == 0) { _errorHandler.HandleEmptyLoadFile(caller); return; }
@@ -102,12 +114,12 @@ namespace SettingsGenerator
 			{
 				if (!IsNullable(valueType))
 				{
-					return _errorHandler.HandleNonNullableNull(caller, ref value);				
+					return _errorHandler.HandleNonNullableNull(caller, ref value);
 				}
 			}
 			else if (!valueType.GetType().IsAssignableTo(value.GetType()) && value != null)
 			{
-				return _errorHandler.HandleTypeMissmatch(caller, ref value);			
+				return _errorHandler.HandleTypeMissmatch(caller, ref value);
 			}
 
 			return PayloadHandle.ExplicitSet;
@@ -120,7 +132,7 @@ namespace SettingsGenerator
 			object? propertyValue = arg.Value;
 
 			var payloadHandle = HandleLoadError(caller, ref propertyValue, propertyType);
-			if (payloadHandle != PayloadHandle.ExplicitSet) { return payloadHandle == PayloadHandle.Skip; }		
+			if (payloadHandle != PayloadHandle.ExplicitSet) { return payloadHandle == PayloadHandle.Skip; }
 
 			prop.SetValue(caller, propertyValue);
 
