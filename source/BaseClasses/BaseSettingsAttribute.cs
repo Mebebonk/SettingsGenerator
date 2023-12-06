@@ -54,7 +54,6 @@ namespace SettingsGenerator
 			if (settings.Count == 0) { _errorHandler.HandleNoMarkedMembersFound(caller); return; }
 
 			using FileStream file = File.Open($"{_fileName}", FileMode.Create);
-			using StreamWriter fileStream = new(file);
 
 			WriteFile(file, settings);
 		}
