@@ -9,7 +9,7 @@ namespace SettingsGenerator
 	internal class SimpleErrorHandler : BaseErrorHandler
 	{
 		public override void HandleEmptyLoadFile(object caller) { return; }
-		public override FileStream? HandleNoFileFound(object caller) => null;	
+		public override FileStream? HandleNoFileFound(object caller) => caller.SaveSettings();	
 
 	}
 }
