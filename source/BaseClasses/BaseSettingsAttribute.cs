@@ -116,7 +116,7 @@ namespace SettingsGenerator
 					return _errorHandler.HandleNonNullableNull(caller, ref value);
 				}
 			}
-			else if (!valueType.GetType().IsAssignableTo(value.GetType()) && value != null)
+			else if (!value.GetType().IsAssignableTo(valueType) && value != null)
 			{
 				return _errorHandler.HandleTypeMissmatch(caller, ref value);
 			}

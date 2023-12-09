@@ -24,7 +24,12 @@ namespace SettingsGenerator
 
 			foreach (var a in loopMap)
 			{
-				keyValuePairs.Add(a.Key, a.Value.Value);
+				JsonElement jsonElement = json.RootElement.GetProperty(a.Key);
+				Type type = Type.GetType(a.Value.Key)!;
+
+				var actualValue = jsonElement.GetProperty("Value").Deserialize(type);
+
+				keyValuePairs.Add(a.Key, actualValue);
 			}
 
 			args = keyValuePairs;
