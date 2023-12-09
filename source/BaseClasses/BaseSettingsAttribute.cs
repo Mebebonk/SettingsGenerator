@@ -107,18 +107,18 @@ namespace SettingsGenerator
 			}
 		}
 
-		private PayloadHandle HandleLoadError(object caller, ref object? value, Type valueType)
+		private PayloadHandle HandleLoadError(object caller, ref object? newValue, Type oldValueType)
 		{
-			if (value == null)
+			if (newValue == null)
 			{
-				if (!IsNullable(valueType))
+				if (!IsNullable(oldValueType))
 				{
-					return _errorHandler.HandleNonNullableNull(caller, ref value);
+					return _errorHandler.HandleNonNullableNull(caller, ref newValue);
 				}
 			}
-			else if (!value.GetType().IsAssignableTo(valueType) && value != null)
+			else if (!newValue.GetType().IsAssignableTo(oldValueType) && newValue != null)
 			{
-				return _errorHandler.HandleTypeMissmatch(caller, ref value);
+				return _errorHandler.HandleTypeMissmatch(caller, ref newValue);
 			}
 
 			return PayloadHandle.ExplicitSet;
