@@ -9,7 +9,7 @@ namespace SettingsGenerator
 {
 	public static class ObjectSettingsExtender
 	{
-		public static void SaveSettings(this object caller, bool inherit = false)
+		public static void SaveSettings(this IGenerateSettings caller, bool inherit = false)
 		{
 			foreach (var attribute in GetSettingsAttributes(caller, inherit))
 			{
@@ -17,7 +17,7 @@ namespace SettingsGenerator
 			}
 		}
 
-		public static void LoadSettings(this object caller, bool inherit = false)
+		public static void LoadSettings(this IGenerateSettings caller, bool inherit = false)
 		{
 			foreach (var attribute in GetSettingsAttributes(caller, inherit))
 			{
@@ -38,4 +38,6 @@ namespace SettingsGenerator
 			return holder.ToArray();
 		}
 	}
+
+	public interface IGenerateSettings { }
 }

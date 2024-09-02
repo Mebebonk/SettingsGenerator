@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace SettingsGenerator
 {
@@ -63,8 +64,8 @@ namespace SettingsGenerator
 
 			if (members.Length == 0) { _errorHandler.HandleNoMembersFound(caller); return; }
 
-			FileStream file;
-
+			FileStream file;			
+			
 			try
 			{
 				file = File.OpenRead($"{_fileName}");
@@ -77,6 +78,7 @@ namespace SettingsGenerator
 			}
 
 			ReadFile(file, out Dictionary<string, object?>? args);
+			file.Dispose();
 
 			if (args == null || args.Count == 0) { _errorHandler.HandleEmptyLoadFile(caller); return; }
 
