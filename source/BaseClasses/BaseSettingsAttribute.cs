@@ -27,7 +27,7 @@ namespace SettingsGenerator
 			if (attributeLink.IsAssignableFrom(typeof(SaveLoadAttribute))) { _attributeLink = attributeLink; }
 		}
 
-		public void SaveSettingsByAttribute(object caller)
+		public void SaveSettingsByAttribute(IGenerateSettings caller)
 		{
 			MemberInfo[] members = caller.GetType().GetMembers(_filter);
 
@@ -58,7 +58,7 @@ namespace SettingsGenerator
 
 			WriteFile(file, settings);
 		}
-		public void LoadSettingsByAttribute(object caller)
+		public void LoadSettingsByAttribute(IGenerateSettings caller)
 		{
 			MemberInfo[] members = caller.GetType().GetMembers(_filter);
 
@@ -109,7 +109,7 @@ namespace SettingsGenerator
 			}
 		}
 
-		private PayloadHandle HandleLoadError(object caller, ref object? newValue, Type oldValueType)
+		private PayloadHandle HandleLoadError(IGenerateSettings caller, ref object? newValue, Type oldValueType)
 		{
 			if (newValue == null)
 			{
@@ -125,7 +125,7 @@ namespace SettingsGenerator
 
 			return PayloadHandle.ExplicitSet;
 		}
-		private bool LoadProperty(object caller, MemberInfo member, KeyValuePair<string, object?> arg)
+		private bool LoadProperty(IGenerateSettings caller, MemberInfo member, KeyValuePair<string, object?> arg)
 		{
 			PropertyInfo prop = caller.GetType().GetProperty(member.Name, _filter)!;
 
@@ -139,7 +139,7 @@ namespace SettingsGenerator
 
 			return true;
 		}
-		private bool LoadField(object caller, MemberInfo member, KeyValuePair<string, object?> arg)
+		private bool LoadField(IGenerateSettings caller, MemberInfo member, KeyValuePair<string, object?> arg)
 		{
 			FieldInfo field = caller.GetType().GetField(member.Name, _filter)!;
 

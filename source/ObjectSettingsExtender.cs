@@ -25,7 +25,7 @@ namespace SettingsGenerator
 			}
 		}
 
-		private static BaseSettingsAttribute[] GetSettingsAttributes(object caller, bool inherit)
+		private static BaseSettingsAttribute[] GetSettingsAttributes(IGenerateSettings caller, bool inherit)
 		{
 			List<BaseSettingsAttribute> holder = new();
 			var attributes = caller.GetType().GetCustomAttributes(typeof(BaseSettingsAttribute), inherit) ?? throw new Exception("No SettingsOwnerAttribute was found");
