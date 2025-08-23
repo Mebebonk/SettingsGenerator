@@ -54,7 +54,7 @@ namespace SettingsGenerator
 
 			if (settings.Count == 0) { _errorHandler.HandleNoMarkedMembersFound(caller); return; }
 
-			using FileStream file = File.Open($"{_fileName}", FileMode.Create);
+			using FileStream file = File.Open($"{_fileName}", FileMode.Create);			
 
 			WriteFile(file, settings);
 		}
@@ -64,8 +64,13 @@ namespace SettingsGenerator
 
 			if (members.Length == 0) { _errorHandler.HandleNoMembersFound(caller); return; }
 
-			FileStream file;			
-			
+			FileStream file;
+
+			if (!Path.Exists(Path.GetDirectoryName(_fileName)))
+			{
+				Directory.CreateDirectory(Path.GetDirectoryName(_fileName)!);
+			}
+
 			try
 			{
 				file = File.OpenRead($"{_fileName}");
